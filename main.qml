@@ -16,6 +16,10 @@ Window {
                name: "osm.mapping.host";
                value: "http://a.tile.openstreetmap.org/"
            }
+      PluginParameter {
+               name: "osm.mapping.cache.directory";
+               value: "cache/"
+           }
     }
 
         Map {
