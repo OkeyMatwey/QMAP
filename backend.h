@@ -2,13 +2,23 @@
 #define BACKEND_H
 
 #include <QObject>
-#include <QTcpSocket>
+#include <QUdpSocket>
+#include <QNetworkDatagram>
+#include <QDebug>
+#include <QtPositioning/QGeoCoordinate>
+#include <qqml.h>
 
 class backend: public QObject
 {
     Q_OBJECT
+    QUdpSocket udpSocket;
 public:
-    backend();
+    backend(int port);
+    QVector<QGeoCoordinate> points;
+public slots:
+    void readPendingDatagrams();
+signals:
+    void sendToQml(float x, float y);
 };
 
 #endif // BACKEND_H

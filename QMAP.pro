@@ -1,4 +1,4 @@
-QT += quick
+QT += quick network positioning
 
 CONFIG += c++11
 

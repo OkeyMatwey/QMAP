@@ -3,11 +3,21 @@ import QtQuick.Window 2.15
 import QtPositioning 5.12
 import QtLocation 5.12
 import QtQuick.Controls 2.15
+import QtQuick.Controls.Styles 1.4
+import QtPositioning 5.2
+
 
 Window {
     visible: true
     width: 640
     height: 480
+
+    Connections {
+            target: b
+            onSendToQml: {
+                mappolyline.addCoordinate(QtPositioning.coordinate(x, y))
+            }
+        }
 
     Plugin {
         id: spacePlugin
@@ -31,6 +41,17 @@ Window {
         zoomLevel: 10
         plugin: plugin
         activeMapType: supportedMapTypes[supportedMapTypes.length - 1]
+
+        MapPolyline {
+            id: mappolyline
+            line.width: 3
+            line.color: 'green'
+        }
+
+        Button {
+            text: qsTr("Сlear")
+            onClicked: mappolyline.path = []
+        }
     }
 
 }
