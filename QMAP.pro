@@ -1,4 +1,4 @@
-QT += quick network positioning
+QT += quick network positioning quickcontrols2
 
 CONFIG += c++11
 
@@ -25,3 +25,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     backend.h
+
+DISTFILES += \
+    server.py
