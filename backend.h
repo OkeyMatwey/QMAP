@@ -7,6 +7,9 @@
 #include <QDebug>
 #include <QtPositioning/QGeoCoordinate>
 #include <qqml.h>
+#include "tiffio.h"
+#include <QDebug>
+#include <QString>
 
 class backend: public QObject
 {
@@ -18,7 +21,8 @@ public:
 public slots:
     void readPendingDatagrams();
 signals:
-    void sendToQml(float x, float y);
+    void sendToQmlpoint(float x, float y);
+    void sendToQmlimg(float x, float y, QString path);
 };
 
 #endif // BACKEND_H

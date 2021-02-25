@@ -11,13 +11,34 @@ ApplicationWindow {
     width: 640
     height: 480
 
-    Universal.theme: Universal.Cyan
-    Universal.accent: Universal.Violet
+    Universal.theme: Universal.Dark
+    Universal.accent: Universal.Dark
+
+    Component {
+        id: imageDelegate
+        MapQuickItem {
+            coordinate: QtPositioning.coordinate(latitude, longitude)
+            zoomLevel: 15
+
+            sourceItem: Image {
+                fillMode: Image.Pad
+                source: path
+            }
+        }
+    }
+
+    ListModel {
+        id: imageModel
+        ListElement { latitude: 56.639545; longitude: 47.890209; path: "file:d:/tiff_shevtsovo/rus_69_shevtsovo_X_n_F1_1_rli.tif"}
+    }
 
     Connections {
         target: b
-        onSendToQml: {
+        onSendToQmlpoint: {
             mappolyline.addCoordinate(QtPositioning.coordinate(x, y))
+        }
+        onSendToQmlimg: {
+            imageModel.append({ latitude: x, longitude: y, path: path})
         }
     }
     Plugin {
@@ -27,6 +48,7 @@ ApplicationWindow {
         PluginParameter {name: "osm.mapping.providersrepository.disabled"; value: true}
         PluginParameter {name: "osm.mapping.cache.directory"; value: "cache/"}
     }
+
     Map {
         id: map
         anchors.fill: parent
@@ -39,6 +61,12 @@ ApplicationWindow {
             id: mappolyline
             line.width: 3
             line.color: 'green'
+        }
+
+        MapItemView {
+            id: items
+            model: imageModel
+            delegate: imageDelegate
         }
 
         Row {
@@ -54,10 +82,14 @@ ApplicationWindow {
                 height: 32
             }
 
-//            ComboBox {
-//                id: comboBox
-//                model: ["First", "Second", "Third"]
-//            }
+            Slider {
+                id: slider
+                width: 64
+                value: 100
+                to: 100
+                onMoved: items.opacity = slider.value / 100
+            }
         }
     }
 }
+

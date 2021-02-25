@@ -28,3 +28,8 @@ HEADERS += \
 
 DISTFILES += \
     server.py
+
+win32: LIBS += -L$$PWD/../tiff-4.2.0/build/libtiff/Release/ -ltiff
+
+INCLUDEPATH += $$PWD/../tiff-4.2.0/libtiff
+DEPENDPATH += $$PWD/../tiff-4.2.0/libtiff
